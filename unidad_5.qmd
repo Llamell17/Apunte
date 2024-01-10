@@ -6,4 +6,53 @@ format:
 jupyter: python3
 ---
 
-## Subtitle
+## Introducción: Archivos
+
+Cuando un programa se esta ejecutando los datos están en la memoria, pero cuando el programa termina los datos se pierden. 
+
+Para almacenar los datos de forma permanente se hace uso de **archivos**. Cada archivo se identifica con un nombre unico dentro de directorio o carpeta en que se encuentre. Por ejemplo dentro la carpeta *Documentos* puede existir solo un archivo con el nombre *Apuntes.txt*.
+
+Los archivos se utilizan para organizar los datos e intercambiarlos para distintos fines. El modo de trabajar con archivos es como trabajar con libros, se pueden abrir, leer, escribir y cerrar. Además se puede leer en orden o secuencialmente o yendo a un lugar especifico. 
+
+:::{.callout-note}
+Toda la organización de las computadoras esta basada en archivos y directorios.
+:::
+
+
+En python para abrir un archivo utilizamos la función ```open```
+
+```{python}
+archivo = open("alumnos.txt")
+```
+
+Esta función intentara abrir el archivo "alumnos.txt" y si tiene éxito en la variable archivo quedara un tipo de dato que nos permitira manipularlo. 
+
+La operación más frecuente con los archivos es leerlos de forma secuencial
+
+```{python}
+archivo = open("alumnos.txt")
+linea = archivo.readline()
+
+while linea != '':
+  # hacer algo con la linea
+  linea = archivo.readline()
+
+```
+
+Este último bloque de código lee todas las lineas (renglones) del archivo hasta que no queden más. 
+
+El la variable archivo, que mencionamos más arriba como un "tipo de dato que nos permitira manipularlo" guarda cual es la siguiente posición que debe leer y cuando se ejecuta ```archivo.readline()``` lee esa posición y avanza una posición más.
+
+
+**Ejemplo:**
+"Alumnos.txt"
+```{txt}
+DNI;Nombre
+45123123;Juan Justo
+46456456;Mariano Moreno
+45098098;Aldana Cometti
+44765765;Pablo Neruda
+```
+
+
+
