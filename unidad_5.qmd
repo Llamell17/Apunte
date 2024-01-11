@@ -22,7 +22,8 @@ Toda la organización de las computadoras esta basada en archivos y directorios.
 En python para abrir un archivo utilizamos la función ```open```
 
 ```{python}
-archivo = open("alumnos.txt")
+ruta_archivo = "files/unidad_5/alumnos.txt"
+archivo = open(ruta_archivo)
 ```
 
 Esta función intentara abrir el archivo "alumnos.txt" y si tiene éxito en la variable archivo quedara un tipo de dato que nos permitira manipularlo. 
@@ -30,22 +31,24 @@ Esta función intentara abrir el archivo "alumnos.txt" y si tiene éxito en la v
 La operación más frecuente con los archivos es leerlos de forma secuencial
 
 ```{python}
-archivo = open("alumnos.txt")
+archivo = open(ruta_archivo)
 linea = archivo.readline()
 
 while linea != '':
   # hacer algo con la linea
   linea = archivo.readline()
 
+archivo.close()
 ```
 
 Este último bloque de código lee todas las lineas (renglones) del archivo hasta que no queden más. 
 
-El la variable archivo, que mencionamos más arriba como un "tipo de dato que nos permitira manipularlo" guarda cual es la siguiente posición que debe leer y cuando se ejecuta ```archivo.readline()``` lee esa posición y avanza una posición más.
+El la variable ```archivo```, que mencionamos más arriba como un "tipo de dato que nos permitira manipularlo" guarda cual es la siguiente posición que debe leer y cuando se ejecuta ```archivo.readline()``` lee esa posición y avanza una posición más.
 
+La función ```close()``` cierra el archivo, esta operación es importante para mantener la consistencia de la información. Volveremos más adelante sobre este tema.
 
-**Ejemplo:**
-"Alumnos.txt"
+> **Ejemplo**
+"alumnos.txt"
 ```{txt}
 DNI;Nombre
 45123123;Juan Justo
@@ -53,6 +56,44 @@ DNI;Nombre
 45098098;Aldana Cometti
 44765765;Pablo Neruda
 ```
+
+
+En el ejemplo anterior leimos el archivo linea por linea, pero existe otra forma de leer un archivo. Veamos otro ejemplo. 
+
+
+```{python}
+archivo = open(ruta_archivo)
+lineas = archivo.readlines()
+archivo.close()
+
+for linea in lineas:
+  # hacer algo con la linea
+  print(linea)
+
+```
+
+**¿ Que diferencias hay entre el ejemplo de más arriba y éste ?**
+
+La diferencia pricipal y que condiciona el resto de los cambios es que en lugar de leer linea por linea utilizamos la funcion ```readlines()```. Esta función leer *todo* el contenido del archivo y devueve una lista donde cada elemento de la lista es un renglón. Por otro lado se llama a la función ```close()``` inmediatamente después de leer todo el archivo. ¿ Por qué ? ¿ Te animas a analizar todas las diferencias ? 
+
+
+## Tipos de acceso
+
+Cuando se abre un archivo hay que especificar para qué lo estamos abriendo, las opciones son: leer o escribir. Por defecto, si no especificamos nada, tal como vimos en los ejemplos anteriores, se abre para leer. 
+
+
+![Resumen de los tipos de acceso con los que se puede abrir un archivo.](./imgs/unidad_5/tipos_acceso.png)
+
+
+
+:::{.callout}
+**Close**
+
+Al terminar de trabajar con un archivo, es importante cerrarlo, por diversos motivos: en
+algunos sistemas los archivos sólo pueden ser abiertos de a un programa por la vez; en otros, lo
+que se haya escrito no se guardará realmente hasta no cerrar el archivo; o el límite de cantidad
+de archivos que puede manejar un programa puede ser bajo, etc.
+:::
 
 
 
