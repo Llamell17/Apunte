@@ -1,5 +1,5 @@
-DNI;Nombre
-45123123;Juan Justo
-46456456;Mariano Moreno
-45098098;Aldana Cometti
-44765765;Pablo Neruda
+DNI;Nombre;Nota
+45123123;Juan Justo;8
+46456456;Mariano Moreno;6
+45098098;Aldana Cometti;9
+44765765;Pablo Neruda;2

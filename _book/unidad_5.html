@@ -212,6 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#introducción-archivos" id="toc-introducción-archivos" class="nav-link active" data-scroll-target="#introducción-archivos"><span class="header-section-number">5.1</span> Introducción: Archivos</a></li>
   <li><a href="#tipos-de-acceso" id="toc-tipos-de-acceso" class="nav-link" data-scroll-target="#tipos-de-acceso"><span class="header-section-number">5.2</span> Tipos de acceso</a></li>
+  <li><a href="#tipos-de-archivos" id="toc-tipos-de-archivos" class="nav-link" data-scroll-target="#tipos-de-archivos"><span class="header-section-number">5.3</span> Tipos de archivos</a></li>
   </ul>
 </nav>
     </div>
@@ -256,13 +257,13 @@ Note
 </div>
 </div>
 <p>En python para abrir un archivo utilizamos la función <code>open</code></p>
-<div id="2eb2571c" class="cell" data-execution_count="1">
+<div id="79c8c8b2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ruta_archivo <span class="op">=</span> <span class="st">"files/unidad_5/alumnos.txt"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>archivo <span class="op">=</span> <span class="bu">open</span>(ruta_archivo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Esta función intentara abrir el archivo “alumnos.txt” y si tiene éxito en la variable archivo quedara un tipo de dato que nos permitira manipularlo.</p>
 <p>La operación más frecuente con los archivos es leerlos de forma secuencial</p>
-<div id="52079a99" class="cell" data-execution_count="2">
+<div id="c493c390" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>archivo <span class="op">=</span> <span class="bu">open</span>(ruta_archivo)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>linea <span class="op">=</span> archivo.readline()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -278,13 +279,13 @@ Note
 <blockquote class="blockquote">
 <p><strong>Ejemplo</strong> “alumnos.txt”</p>
 </blockquote>
-<pre class="{txt}"><code>DNI;Nombre
-45123123;Juan Justo
-46456456;Mariano Moreno
-45098098;Aldana Cometti
-44765765;Pablo Neruda</code></pre>
+<pre class="{txt}"><code>DNI;Nombre;Nota
+45123123;Juan Justo;8
+46456456;Mariano Moreno;6
+45098098;Aldana Cometti;9
+44765765;Pablo Neruda;2</code></pre>
 <p>En el ejemplo anterior leimos el archivo linea por linea, pero existe otra forma de leer un archivo. Veamos otro ejemplo.</p>
-<div id="ce6cddb6" class="cell" data-execution_count="3">
+<div id="5e5cd1a0" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>archivo <span class="op">=</span> <span class="bu">open</span>(ruta_archivo)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>lineas <span class="op">=</span> archivo.readlines()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>archivo.close()</span>
@@ -293,15 +294,15 @@ Note
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># hacer algo con la linea</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(linea)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>DNI;Nombre
+<pre><code>DNI;Nombre;Nota
 
-45123123;Juan Justo
+45123123;Juan Justo;8
 
-46456456;Mariano Moreno
+46456456;Mariano Moreno;6
 
-45098098;Aldana Cometti
+45098098;Aldana Cometti;9
 
-44765765;Pablo Neruda</code></pre>
+44765765;Pablo Neruda;2</code></pre>
 </div>
 </div>
 <p><strong>¿ Que diferencias hay entre el ejemplo de más arriba y éste ?</strong></p>
@@ -316,19 +317,125 @@ Note
 <figcaption>Resumen de los tipos de acceso con los que se puede abrir un archivo.</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
+<p>Veamos ejemplos de los casos más comunes</p>
+<blockquote class="blockquote">
+<p><strong>Ejemplo Write (w)</strong></p>
+</blockquote>
+<div id="e8164f3b" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ruta_archivo_nuevo <span class="op">=</span> <span class="st">"files/unidad_5/alumnos_nuevo.txt"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>archivo <span class="op">=</span> <span class="bu">open</span>(ruta_archivo_nuevo, <span class="st">'w'</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># hacer algo con la linea</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  archivo.write(<span class="ss">f"linea número </span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> </span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>archivo.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<i class="callout-icon"></i>
 </div>
-<div class="callout-body-container">
-<p><strong>Close</strong></p>
-<p>Al terminar de trabajar con un archivo, es importante cerrarlo, por diversos motivos: en algunos sistemas los archivos sólo pueden ser abiertos de a un programa por la vez; en otros, lo que se haya escrito no se guardará realmente hasta no cerrar el archivo; o el límite de cantidad de archivos que puede manejar un programa puede ser bajo, etc.</p>
-</div>
+<div class="callout-title-container flex-fill">
+Tip
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<p>En este ejemplo se puede ver el uso de <code>\n</code> ese caracter es lo que indica a los medios de salida de información que lo que se escribió finaliza con una nueva linea.</p>
+<p>Cuando leemos un archivo tenemos que tener en cuenta que el último caracter de cada linea va a ser <code>\n</code></p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Ejemplo Read (r)</strong></p>
+</blockquote>
+<div id="6ce28039" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>archivo <span class="op">=</span> <span class="bu">open</span>(ruta_archivo_nuevo, <span class="st">'r'</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>lineas <span class="op">=</span> archivo.readlines()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>archivo.close()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> linea <span class="kw">in</span> lineas:</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># hacer algo con la linea</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(linea)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>linea número 0 
+
+linea número 1 
+
+linea número 2 
+
+linea número 3 
+
+linea número 4 
+</code></pre>
+</div>
+</div>
+<p><strong>Close</strong> Al terminar de trabajar con un archivo, es importante cerrarlo, por diversos motivos: en algunos sistemas los archivos sólo pueden ser abiertos de a un programa por la vez; en otros, lo que se haya escrito no se guardará realmente hasta no cerrar el archivo.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>¿ Te animas a probar que pasa si intentas escribir en un archivo que fue abierto para lectura (‘r’) y a leer en uno que fue abierto para escritura (‘w’) ?</p>
+</div>
+</div>
+<p>Veamos un ejemplo en el que trabajaremos con dos archivos.</p>
+<blockquote class="blockquote">
+<p><strong>Ejemplo</strong> Obtener un el promedio de notas y guardarlo en un nuevo archivo llamado “promedio.txt”</p>
+</blockquote>
+<div id="c39c26f3" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Abrimos el archivo de notas</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ruta_archivo <span class="op">=</span> <span class="st">"files/unidad_5/alumnos.txt"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>archivo <span class="op">=</span> <span class="bu">open</span>(ruta_archivo, <span class="st">'r'</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>lineas <span class="op">=</span> archivo.readlines()</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>archivo.close()</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Leemos linea por linea cada nota </span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>suma_notas <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>cantidad_notas <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> linea <span class="kw">in</span> lineas[<span class="dv">1</span>:]:</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  nota <span class="op">=</span> linea.split(<span class="st">";"</span>)[<span class="dv">2</span>].strip(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  suma_notas <span class="op">+=</span> <span class="bu">int</span>(nota)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  cantidad_notas <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Guardamos el promedio en un nuevo archivo</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>ruta_archivo_promedios <span class="op">=</span> <span class="st">"files/unidad_5/promedio.txt"</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>archivo <span class="op">=</span> <span class="bu">open</span>(ruta_archivo_promedios, <span class="st">'w'</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>archivo.write(<span class="bu">str</span>(suma_notas<span class="op">/</span>cantidad_notas))</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>archivo.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Veamos el contenido del archivo “promedio.txt”</p>
+<div id="2456a23c" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ruta_archivo <span class="op">=</span> <span class="st">"files/unidad_5/promedio.txt"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>archivo <span class="op">=</span> <span class="bu">open</span>(ruta_archivo, <span class="st">'r'</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>linea <span class="op">=</span> archivo.readline()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>archivo.close()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(linea)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>6.25</code></pre>
+</div>
+</div>
+<p>En el ejemplo anterior hay al menos dos cosas que vale la pena remarcar: el uso de la función <code>split()</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> nos permite separar cada linea en una lista que tiene 3 elementos, a nosostros nos interesa el elemento que esta en la posición 2, la nota; por otro lado también utilizamos la función <code>strip()</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, esto remueve el caracter de nueva linea <code>\n</code> y nos permite leer la nota como un número.</p>
+<p>Un detalle que no hay que evadir cómo se recorre la lista teniendo en cuenta que la primer linea del archivo no nos interesa ya que contiene los nombres de cada campo. Esto se explica en <a href="unidad_4.html#listas-como-secuencias">unidad 4</a>.</p>
+</section>
+<section id="tipos-de-archivos" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="tipos-de-archivos"><span class="header-section-number">5.3</span> Tipos de archivos</h2>
+<p>En la sección anterior utilizamos para todos los archivos la extención ‘.txt’ el uso de extenciónes es una <strong>convención</strong>, una manera de nombrar las cosas que nos da una idea de lo que hay en el contenido del archivo.</p>
+<p>Comunmente a los archivos que estuvimos usando como ejemplo se los nombra con la extención ‘.csv’ las siglas de “comma separated values”<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
 
 
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><a href="https://docs.python.org/es/3/library/stdtypes.html#str.split">Split</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://docs.python.org/es/3/library/stdtypes.html#str.strip">Strip</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://es.wikipedia.org/wiki/Valores_separados_por_comas">CSV</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
